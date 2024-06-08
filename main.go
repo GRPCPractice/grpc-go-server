@@ -13,9 +13,13 @@ type server struct {
 }
 
 func (s *server) SayHello(ctx context.Context, in *helloworld.HelloRequest) (*helloworld.HelloReply, error) {
-	fmt.Println("Hello Request: ", in.GetName())
-
-	return &helloworld.HelloReply{Message: "Hello, World!"}, nil
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	default:
+		fmt.Println("Hello Request: ", in.GetName())
+		return &helloworld.HelloReply{Message: "Hello, World!"}, nil
+	}
 }
 
 func main() {
