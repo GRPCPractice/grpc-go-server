@@ -1,26 +1,11 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"github.com/GRPCPractice/proto/proto/helloworld"
 	"google.golang.org/grpc"
 	"net"
 )
-
-type server struct {
-	helloworld.UnimplementedGreeterServer
-}
-
-func (s *server) SayHello(ctx context.Context, in *helloworld.HelloRequest) (*helloworld.HelloReply, error) {
-	select {
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	default:
-		fmt.Println("Hello Request: ", in.GetName())
-		return &helloworld.HelloReply{Message: "Hello, World!"}, nil
-	}
-}
 
 func main() {
 	fmt.Println("Hello, World!")
@@ -31,7 +16,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	helloworld.RegisterGreeterServer(s, &server{})
+	helloworld.RegisterGreeterServer(s, &hellowordServer{})
 	if err := s.Serve(lis); err != nil {
 		fmt.Printf("failed to serve: %v", err)
 	}
