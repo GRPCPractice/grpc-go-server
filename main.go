@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/GRPCPractice/proto/proto/helloworld"
+	"github.com/GRPCPractice/proto/proto/user"
 	"google.golang.org/grpc"
 	"net"
 )
@@ -17,6 +18,7 @@ func main() {
 
 	s := grpc.NewServer()
 	helloworld.RegisterGreeterServer(s, &hellowordServer{})
+	user.RegisterUserServiceServer(s, &userServer{})
 	if err := s.Serve(lis); err != nil {
 		fmt.Printf("failed to serve: %v", err)
 	}
