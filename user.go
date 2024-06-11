@@ -54,6 +54,7 @@ func (s *userServer) CreateUser(ctx context.Context, in *user.CreateUserRequest)
 		CreatedAt: now,
 		UpdatedAt: now,
 	}
+	s.users[u.ID] = u
 
 	timestamp := timestamppb.New(now)
 	return &user.User{
@@ -119,8 +120,9 @@ func (s *userServer) ListUsers(ctx context.Context, in *emptypb.Empty) (*user.Us
 func (s *userServer) NewUserID() string {
 	for {
 		s.userSeq++
-		if _, ok := s.users[string(s.userSeq)]; !ok {
-			return string(s.userSeq)
+		userID := fmt.Sprintf("%d", s.userSeq)
+		if _, ok := s.users[userID]; !ok {
+			return userID
 		}
 	}
 }

@@ -18,7 +18,9 @@ func main() {
 
 	s := grpc.NewServer()
 	helloworld.RegisterGreeterServer(s, &hellowordServer{})
-	user.RegisterUserServiceServer(s, &userServer{})
+	user.RegisterUserServiceServer(s, &userServer{
+		users: make(map[string]User),
+	})
 	if err := s.Serve(lis); err != nil {
 		fmt.Printf("failed to serve: %v", err)
 	}
