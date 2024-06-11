@@ -54,6 +54,7 @@ func (s *userServer) CreateUser(ctx context.Context, in *user.CreateUserRequest)
 		CreatedAt: now,
 		UpdatedAt: now,
 	}
+	s.users[u.ID] = u
 
 	timestamp := timestamppb.New(now)
 	return &user.User{
