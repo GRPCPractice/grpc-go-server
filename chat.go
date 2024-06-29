@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/GRPCPractice/proto/proto/chat"
 	"google.golang.org/protobuf/types/known/emptypb"
 	"sync"
@@ -14,6 +15,7 @@ type chatServer struct {
 }
 
 func (s *chatServer) Connect(in *chat.ConnectRequest, stream chat.ChatService_ConnectServer) error {
+	fmt.Println("Connect: ", in.GetUserId())
 	s.mu.Lock()
 	if _, ok := s.chatChanel[in.GetUserId()]; !ok {
 		s.chatChanel[in.GetUserId()] = make(chan *chat.ChatMessage)
@@ -24,9 +26,11 @@ func (s *chatServer) Connect(in *chat.ConnectRequest, stream chat.ChatService_Co
 		select {
 		case msg := <-s.chatChanel[in.GetUserId()]:
 			if err := stream.Send(msg); err != nil {
+				fmt.Println("Send Fail: ", in.GetUserId())
 				return err
 			}
 		case <-stream.Context().Done():
+			fmt.Println("Disconnect: ", in.GetUserId())
 			s.mu.Lock()
 			delete(s.chatChanel, in.GetUserId())
 			s.mu.Unlock()
