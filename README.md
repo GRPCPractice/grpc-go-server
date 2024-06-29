@@ -6,15 +6,11 @@ proto repo는 [여기](https://github.com/GRPCPractice/proto)를 참고하시기
 
 ## 설치 방법
 
-1. Go를 설치합니다. [공식 Go 다운로드 페이지](https://golang.org/dl/)에서 가이드를 참조하세요.
-2. 이 저장소를 클론합니다.
-   ```shell
-   git clone https://github.com/yourusername/GRPCPractice.git
-   ```
-3. 필요한 패키지를 설치합니다.
-   ```shell
-   go get github.com/GRPCPractice/proto@v0.3.0
-   ```
+이 프로젝트를 사용하려면 먼저 필요한 의존성을 설치해야 합니다. 다음 명령을 사용하여 필요한 패키지를 설치할 수 있습니다:
+
+```shell
+go get github.com/GRPCPractice/proto@v0.2.0
+```
 
 ## 기능
 1. **helloWorld**: gRPC 기본 예제
