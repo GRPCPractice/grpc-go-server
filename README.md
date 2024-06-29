@@ -13,7 +13,7 @@ proto repo는 [여기](https://github.com/GRPCPractice/proto)를 참고하시기
    ```
 3. 필요한 패키지를 설치합니다.
    ```shell
-   go get github.com/GRPCPractice/proto@v0.2.0
+   go get github.com/GRPCPractice/proto@v0.3.0
    ```
 
 ## 기능
