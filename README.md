@@ -19,4 +19,5 @@ proto repo는 [여기](https://github.com/GRPCPractice/proto)를 참고하시기
 ## 기능
 1. **helloWorld**: gRPC 기본 예제
 2. **user**: 사용자 CRUD
+3. **chat**: 채팅
 

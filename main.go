@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/GRPCPractice/proto/proto/chat"
 	"github.com/GRPCPractice/proto/proto/helloworld"
 	"github.com/GRPCPractice/proto/proto/user"
 	"google.golang.org/grpc"
@@ -20,6 +21,9 @@ func main() {
 	helloworld.RegisterGreeterServer(s, &hellowordServer{})
 	user.RegisterUserServiceServer(s, &userServer{
 		users: make(map[string]User),
+	})
+	chat.RegisterChatServiceServer(s, &chatServer{
+		chatChanel: make(map[string]chan *chat.ChatMessage),
 	})
 	if err := s.Serve(lis); err != nil {
 		fmt.Printf("failed to serve: %v", err)
